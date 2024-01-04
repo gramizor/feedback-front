@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import axios from 'axios';
-import './Group.css'
+import './Group.css';
 
 interface Group {
   group_id: number;
@@ -15,19 +14,33 @@ interface Group {
 
 const Group: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
-  const groupId = id ? parseInt(id, 10) : undefined; // Проверка на undefined
+  const groupId = id ? parseInt(id, 10) : undefined;
 
-  const [group, setGroup] = React.useState<Group | null>(null);
+  const [group, setGroup] = useState<Group | null>(null);
+  const loadingGroup: Group = {
+    group_id: 0,
+    group_code: 'Загрузка...',
+    contacts: 'Загрузка...',
+    course: 0,
+    students: 0,
+    group_status: 'Загрузка...',
+    photo: '/src/mocks/loading-thinking.gif',
+  };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        if (groupId !== undefined) { // Добавляем проверку на undefined
-          const response = await axios.get(`/api/group/${groupId}`);
-          setGroup(response.data?.group || null);
+        if (groupId !== undefined) {
+          const response = await fetch(`/api/group/${groupId}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data. Status: ${response.status}`);
+          }
+          const data = await response.json();
+          setGroup(data.group || null);
         }
       } catch (error) {
         console.error('Error fetching group data:', error);
+        setGroup(loadingGroup);
       }
     };
 
@@ -39,7 +52,6 @@ const Group: React.FC = () => {
   }
 
   return (
-
     <>
       <div className="group-info">
         <div className="group-block">

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import './MainPage.css'
+import './MainPage.css';
 
 interface GroupData {
     group_id: number;
@@ -16,20 +15,34 @@ interface GroupData {
 const MainPage: React.FC = () => {
     const [groups, setGroups] = useState<GroupData[] | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [itemsPerPage, setItemsPerPage] = useState<number>(4);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(100);
+    const loadingGroup: GroupData = {
+        group_id: -1,
+        group_code: 'Загрузка...',
+        contacts: 'Загрузка...',
+        course: -1,
+        students: -1,
+        group_status: 'Загрузка...',
+        photo: '/src/mocks/loading-thinking.gif',
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/group/');
-                setGroups(response.data?.groups?.groups || null);
+                const response = await fetch(`/api/group/paginate?page=${currentPage}&pageSize=${itemsPerPage}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data. Status: ${response.status}`);
+                }
+                const data = await response.json();
+                setGroups(data?.groups?.groups || null);
             } catch (error) {
                 console.error('Error fetching groups data:', error);
+                setGroups([loadingGroup]);
             }
         };
 
         fetchData();
-    }, []);
+    }, [currentPage, itemsPerPage]);
 
     if (!groups) {
         return <div className='loading'>Загрузка...</div>;
@@ -37,24 +50,23 @@ const MainPage: React.FC = () => {
 
     const handleDelete = async (groupId: number) => {
         try {
-            await axios.delete(`/api/group/${groupId}/delete`);
-            const response = await axios.get('/api/group/');
-            setGroups(response.data?.groups?.groups || null);
+            await fetch(`/api/group/${groupId}/delete`, {
+                method: 'DELETE',
+            });
+            const response = await fetch(`/api/group/paginate?page=${currentPage}&pageSize=${itemsPerPage}`);
+            const data = await response.json();
+            setGroups(data?.groups?.groups || null);
         } catch (error) {
             console.error('Error deleting group:', error);
         }
     };
-
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = groups.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     return (
         <>
             <div className="group-list">
-                {currentItems.map((group) => (
+                {groups.map((group) => (
                     <NavLink to={`/group/${group.group_id}`} className='group-link' key={group.group_id}>
                         <div key={group.group_id} className='group-item'>
                             <img src={group.photo} alt={`Group ${group.group_code}`} className='img-group' />
@@ -65,13 +77,6 @@ const MainPage: React.FC = () => {
                             </form>
                         </div>
                     </NavLink>
-                ))}
-            </div>
-            <div className="pagination">
-                {Array.from({ length: Math.ceil(groups.length / itemsPerPage) }, (_, index) => (
-                    <button key={index} onClick={() => paginate(index + 1)}>
-                        {index + 1}
-                    </button>
                 ))}
             </div>
         </>
