@@ -34,7 +34,6 @@ const Group: React.FC = () => {
     group_status: 'Загрузка...',
     photo: '/src/mocks/loading-thinking.gif',
   };
-
   useEffect(() => {
     const fetchDataAndSetLoading = async () => {
       setLoading(true);
@@ -42,7 +41,7 @@ const Group: React.FC = () => {
       setLoading(false);
     };
     fetchDataAndSetLoading();
-  }, [groupId]);
+  }, [groupId, loading]);
 
   const fetchGroupData = async () => {
     try {

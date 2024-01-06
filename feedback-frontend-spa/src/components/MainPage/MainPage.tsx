@@ -45,10 +45,13 @@ const MainPage: React.FC = () => {
             setLoading(true);
             await fetchData();
             setLoading(false);
+            setItemsPerPage(10);
+            paginate(1);
         };
 
         fetchDataAndSetLoading();
     }, [currentPage, itemsPerPage, selectedCourse, searchTerm]);
+
 
     const fetchData = async () => {
         try {
