@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20px 10%;
 }
 
 .group-link {
@@ -62,4 +62,58 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+.filter-bar {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin: 1% auto;
+    background-color: #307672;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.my-input {
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    background: #E4EDDB;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+.selector {
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+    padding: 10px;
+    border-radius: 10px;
+    background: #E4EDDB;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.my-button {
+  font-family: 'Comfortaa', cursive;
+  border: none;
+    outline: none;
+    padding: 10px;
+    background: #307672;
+    color: #E4EDDB;
+    cursor: pointer;
+    border-radius: 10px;
+    border: solid;
+    transition: 0.3s;
+}
+
+.my-button:hover {
+    background: #1A3C40;
+    border-radius: 15px;
+    transition: 0.3s;
 }

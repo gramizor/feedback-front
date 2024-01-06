@@ -58,7 +58,7 @@ export const Breadcrumbs: React.FC = () => {
       {breadcrumbs.map((breadcrumb, index) => (
         <span key={index}>
           <Link to={breadcrumb.path}>{breadcrumb.name}</Link>
-          {index < breadcrumbs.length - 1 && ' / '}
+          {index < breadcrumbs.length - 1 && ' > '}
         </span>
       ))}
     </div>

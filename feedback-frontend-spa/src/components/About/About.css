@@ -1,0 +1,21 @@
+.about-text {
+    justify-content: center;
+    max-width: 1000px;
+    margin: 15px auto;
+    padding: 1% 10px;
+    background-color: #E4EDDB;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    color: black;
+}
+
+.not-found {
+    text-align: center;
+}
+
+.o4ko{
+    margin: 0 10%;
+}
