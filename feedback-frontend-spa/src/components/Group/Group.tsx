@@ -16,7 +16,7 @@ interface Group {
 const Group: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const groupId = id ? parseInt(id, 10) : undefined;
-  const defaultPhoto = '/src/mocks/bmstu.png';
+  const defaultPhoto = 'feedback-front/public/mocks/bmstu.png';
   const updateBreadcrumbs = useBreadcrumbsUpdater();
   const [group, setGroup] = useState<Group | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ const Group: React.FC = () => {
     course: 0,
     students: 0,
     group_status: 'Загрузка...',
-    photo: '/src/mocks/loading-thinking.gif',
+    photo: 'feedback-front/public/mocks/loading-thinking.gif',
   };
   useEffect(() => {
     const fetchDataAndSetLoading = async () => {

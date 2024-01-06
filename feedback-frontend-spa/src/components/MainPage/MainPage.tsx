@@ -22,7 +22,7 @@ const MainPage: React.FC = () => {
     const [placeholderVisible, setPlaceholderVisible] = useState(true);
     const [loading, setLoading] = useState(true)
 
-    const defaultPhoto = '/src/mocks/bmstu.png';
+    const defaultPhoto = 'feedback-front/public/mocks/bmstu.png';
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     const updateBreadcrumbs = useBreadcrumbsUpdater();
@@ -37,7 +37,7 @@ const MainPage: React.FC = () => {
         course: -1,
         students: -1,
         group_status: 'Загрузка...',
-        photo: '/src/mocks/loading-thinking.gif',
+        photo: 'feedback-front/public/mocks/loading-thinking.gif',
     };
 
     useEffect(() => {
@@ -153,7 +153,7 @@ const MainPage: React.FC = () => {
                                 <NavLink to={`/group/${group.group_id}`} className="group-link">
                                     <img
                                         src={group.photo || defaultPhoto}
-                                        alt={`Group ${group.group_code}`}
+                                        alt={`Группа ${group.group_code}`}
                                         className='img-group'
                                     />
                                     <h2>{group.group_code}</h2>
