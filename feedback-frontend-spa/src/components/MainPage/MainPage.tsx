@@ -2,16 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './MainPage.css';
 import { useBreadcrumbsUpdater } from '../Breadcrumbs/BreadcrumbsContext';
-
-interface GroupData {
-    group_id: number;
-    group_code: string;
-    contacts: string;
-    course: number;
-    students: number;
-    group_status: string;
-    photo: string;
-}
+import loadingPhoto from "/loading-thinking.gif";
+import defaultPhoto from "/bmstu.png";
+import { GroupData, loadingGroup } from '../loadingGroup'; // Замени "path-to-loadingGroup" на путь к фай
 
 const MainPage: React.FC = () => {
     const [groups, setGroups] = useState<GroupData[] | null>(null);
@@ -22,23 +15,12 @@ const MainPage: React.FC = () => {
     const [placeholderVisible, setPlaceholderVisible] = useState(true);
     const [loading, setLoading] = useState(true)
 
-    const defaultPhoto = '/src/mocks/bmstu.png';
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     const updateBreadcrumbs = useBreadcrumbsUpdater();
     useEffect(() => {
         updateBreadcrumbs([{ name: 'Главная', path: '/' }]);
     }, []);
-
-    const loadingGroup: GroupData = {
-        group_id: -1,
-        group_code: 'Загрузка...',
-        contacts: 'Загрузка...',
-        course: -1,
-        students: -1,
-        group_status: 'Загрузка...',
-        photo: '/src/mocks/loading-thinking.gif',
-    };
 
     useEffect(() => {
         const fetchDataAndSetLoading = async () => {
@@ -76,7 +58,6 @@ const MainPage: React.FC = () => {
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
         setCurrentPage(1);
-        console.log('Изменения в поисковом запросе:', event.target.value);
     };
 
     const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -136,8 +117,8 @@ const MainPage: React.FC = () => {
                     <div className='group-item'>
                         <NavLink to={`/group/${loadingGroup.group_id}`} className="group-link">
                             <img
-                                src={loadingGroup.photo}
-                                alt={`Группа ${loadingGroup.group_code}`}
+                                src={loadingPhoto}
+                                alt="Группа"
                                 className='img-group'
                             />
                             <h2>{loadingGroup.group_code}</h2>
