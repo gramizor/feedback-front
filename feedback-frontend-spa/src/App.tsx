@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Breadcrumbs } from './components/Breadcrumbs/BreadcrumbsContext';
 import { BreadcrumbsProvider } from './components/Breadcrumbs/BreadcrumbsContext';
 import About from './components/About/About.tsx';
@@ -11,7 +11,7 @@ import './App.css';
 function App() {
   return (
     <BreadcrumbsProvider initialBreadcrumbs={[{ name: '', path: '/' }]}>
-      <Router>
+      <HashRouter>
         <Header />
         <Breadcrumbs />
         <Routes>
@@ -20,7 +20,7 @@ function App() {
           <Route path="/group/:id" element={<Group />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
+      </HashRouter>
     </BreadcrumbsProvider>
   );
 }
