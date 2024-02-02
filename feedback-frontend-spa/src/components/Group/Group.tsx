@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import './Group.css';
-import { useBreadcrumbsUpdater } from '../Breadcrumbs/BreadcrumbsContext';
 import defaultPhoto from "/bmstu.png";
 import GroupData from '../loadingGroup';
 import Mock from '../Mock';
@@ -10,7 +9,6 @@ const Group: React.FC = () => {
   const [, setGroups] = useState<GroupData[]>([]);
   const { id } = useParams<{ id?: string }>();
   const groupId = id ? parseInt(id, 10) : undefined;
-  const updateBreadcrumbs = useBreadcrumbsUpdater();
   const [group, setGroup] = useState<GroupData | null>(null);
   const [online, setOnline] = useState("off");
 
@@ -32,20 +30,29 @@ const Group: React.FC = () => {
     fetchGroupData();
   }, []);
 
-  useEffect(() => {
-    const hasGroupDataInMock = Mock.length > 0 && Mock.some(item => item.group_id === groupId);
-
-    updateBreadcrumbs([
-      { name: 'Главная', path: '/' },
-      {
-        name: hasGroupDataInMock ? String(Mock.find(item => item.group_id === groupId)?.group_code) : (group ? group.group_code : 'Загрузка'),
-        path: 'group/' + (hasGroupDataInMock ? groupId : group?.group_id)
-      }
-    ]);
-  }, [group, groupId, Mock]);
-
   return (
     <>
+      <div className="breadCrumbs">
+        <NavLink to="/" >Главная </NavLink>
+        {online === "on" && group ? (
+          <>
+            <span> &gt; </span>
+            <NavLink to={`/group/${group.group_id}`} >
+              {group.group_code}
+            </NavLink>
+          </>
+        ) : (
+          <span>{Mock.length > 0 && Mock.some(item => item.group_id === groupId) ? (
+            <>
+              <span> &gt; </span>
+              <NavLink to={`/group/${groupId}`} >
+                {String(Mock.find(item => item.group_id === groupId)?.group_code)}
+              </NavLink>
+            </>
+          ) : 'Загрузка'}</span>
+        )}
+
+      </div>
       <div className="group-info">
         <div className="group-block">
           {online === "on" && group ? (
@@ -79,12 +86,6 @@ const Group: React.FC = () => {
           <NavLink to={`/`} className="back">
             Вернуться на главную
           </NavLink>
-          {online === "on" && !group && Mock.every(mockGroup => mockGroup.group_id !== groupId) && null}
-          {online === "on" && group && (
-            <NavLink to={`/`} className="back">
-              Запросить обратную связь
-            </NavLink>
-          )}
         </div>
       </div>
     </>

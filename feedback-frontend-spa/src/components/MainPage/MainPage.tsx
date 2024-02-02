@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './MainPage.css';
-import { useBreadcrumbsUpdater } from '../Breadcrumbs/BreadcrumbsContext';
 import defaultPhoto from "/bmstu.png";
 import GroupData from '../loadingGroup';
 import Mock from '../Mock';
@@ -15,11 +14,8 @@ const MainPage: React.FC = () => {
     const [placeholderVisible, setPlaceholderVisible] = useState(true);
     const [online, setOnline] = useState("off");
 
-    const updateBreadcrumbs = useBreadcrumbsUpdater();
-
     useEffect(() => {
         setGroups(Mock);
-        updateBreadcrumbs([{ name: 'Главная', path: '/' }]);
     }, []);
 
     useEffect(() => {
@@ -57,19 +53,6 @@ const MainPage: React.FC = () => {
         setCurrentPage(1);
     };
 
-    const handleDelete = async (groupId: number) => {
-        try {
-            await fetch(`/api/group/${groupId}/delete`, {
-                method: 'DELETE',
-            });
-            const response = await fetch(`/api/group/paginate?page=${currentPage}&pageSize=${itemsPerPage}`);
-            const data = await response.json();
-            setGroups(data?.groups?.groups || null);
-        } catch (error) {
-            console.error('Error deleting group:', error);
-        }
-    };
-
     const handleFocus = () => {
         setPlaceholderVisible(false);
     };
@@ -80,6 +63,9 @@ const MainPage: React.FC = () => {
 
     return (
         <>
+            <div className="breadCrumbs">
+                <NavLink to="/" >Главная </NavLink>
+            </div>
             <div className="filter-bar">
                 <input
                     type="text"
@@ -132,9 +118,6 @@ const MainPage: React.FC = () => {
                                 />
                                 <h2>{group.group_code}</h2>
                                 <p>Контакты: {group.contacts}</p>
-                                <form onSubmit={() => handleDelete(group.group_id)} className="delete-button">
-                                    <button type="submit" className="button">Удалить группу</button>
-                                </form>
                             </div>
                         </NavLink>
                     ))
