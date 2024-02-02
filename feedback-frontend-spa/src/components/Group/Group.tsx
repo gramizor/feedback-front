@@ -2,83 +2,89 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import './Group.css';
 import { useBreadcrumbsUpdater } from '../Breadcrumbs/BreadcrumbsContext';
-import loadingPhoto from "/loading-thinking.gif";
 import defaultPhoto from "/bmstu.png";
-import { GroupData, loadingGroup } from '../loadingGroup'; // Замени "path-to-loadingGroup" на путь к фай
+import GroupData from '../loadingGroup';
+import Mock from '../Mock';
 
 const Group: React.FC = () => {
+  const [, setGroups] = useState<GroupData[]>([]);
   const { id } = useParams<{ id?: string }>();
   const groupId = id ? parseInt(id, 10) : undefined;
   const updateBreadcrumbs = useBreadcrumbsUpdater();
   const [group, setGroup] = useState<GroupData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [online, setOnline] = useState("off");
 
   useEffect(() => {
-    updateBreadcrumbs([{ name: 'Главная', path: '/' }, { name: group ? group.group_code : 'Загрузка', path: 'group/' + group?.group_id }]);
-  }, [loading]);
-
-  useEffect(() => {
-    const fetchDataAndSetLoading = async () => {
-      setLoading(true);
-      await fetchGroupData();
-      setLoading(false);
+    const fetchGroupData = async () => {
+      try {
+        const response = await fetch(`/api/group/${groupId}`);
+        const data = await response.json();
+        setGroup(data?.group || null);
+        setGroups(data?.groups || []);
+        setOnline("on");
+      } catch (error) {
+        setGroups(Mock);
+        setTimeout(() => {
+          fetchGroupData();
+        }, 2000);
+      }
     };
-    fetchDataAndSetLoading();
+    fetchGroupData();
   }, []);
 
-  const fetchGroupData = async () => {
-    try {
-      const response = await fetch(`/api/group/${groupId}`);
+  useEffect(() => {
+    const hasGroupDataInMock = Mock.length > 0 && Mock.some(item => item.group_id === groupId);
 
-      if (!response.ok) {
-        console.error(`Failed to fetch data. Status: ${response.status}`);
-        setTimeout(fetchGroupData, 2000);
-        return;
+    updateBreadcrumbs([
+      { name: 'Главная', path: '/' },
+      {
+        name: hasGroupDataInMock ? String(Mock.find(item => item.group_id === groupId)?.group_code) : (group ? group.group_code : 'Загрузка'),
+        path: 'group/' + (hasGroupDataInMock ? groupId : group?.group_id)
       }
-
-      const data = await response.json();
-      setGroup(data?.group || null);
-    } catch (error) {
-      console.error('Error fetching group data:', error);
-      setTimeout(fetchGroupData, 2000);
-    }
-  };
+    ]);
+  }, [group, groupId, Mock]);
 
   return (
     <>
       <div className="group-info">
-        {loading || group === null ? (
-          <div className="group-block">
-            <img src={loadingPhoto} alt={`Группа`} className="img-group" />
-            <div className="info-about">
-              <h2>{loadingGroup.group_code}</h2>
-              <p>Курс: {loadingGroup.course}</p>
-              <p>Контакты: {loadingGroup.contacts}</p>
-              <p>Студентов: {loadingGroup.students}</p>
-            </div>
-          </div>
-        ) : (
-          group.group_code === null ? (
-            <p>Группа не найдена</p>
-          ) : (
-            <div className="group-block">
-              <img src={group?.photo || defaultPhoto} alt={`Группа ${group?.group_code}`} className="img-group" />
+        <div className="group-block">
+          {online === "on" && group ? (
+            <>
+              <img src={group.photo || defaultPhoto} alt={`Группа ${group.group_code}`} className="img-group" />
               <div className="info-about">
-                <h2>{group?.group_code}</h2>
-                <p>Курс: {group?.course}</p>
-                <p>Контакты: {group?.contacts}</p>
-                <p>Студентов: {group?.students}</p>
+                <h2>{group.group_code}</h2>
+                <p>Курс: {group.course}</p>
+                <p>Контакты: {group.contacts}</p>
+                <p>Студентов: {group.students}</p>
               </div>
-            </div>
-          )
-        )}
+            </>
+          ) : (
+            Mock.filter(mockGroup => mockGroup.group_id === groupId).map((mockGroup) => (
+              <div key={mockGroup.group_id} className="group-block">
+                <img src={mockGroup.photo || defaultPhoto} alt={`Группа ${mockGroup.group_code}`} className="img-group" />
+                <div className="info-about">
+                  <h2>{mockGroup.group_code}</h2>
+                  <p>Курс: {mockGroup.course}</p>
+                  <p>Контакты: {mockGroup.contacts}</p>
+                  <p>Студентов: {mockGroup.students}</p>
+                </div>
+              </div>
+            ))
+          )}
+          {online === "on" && !group && Mock.every(mockGroup => mockGroup.group_id !== groupId) && (
+            <p>К сожалению, такой группы еще нет</p>
+          )}
+        </div>
         <div className="buttons">
           <NavLink to={`/`} className="back">
             Вернуться на главную
           </NavLink>
-          <NavLink to={`/`} className="back">
-            Запросить обратную связь
-          </NavLink>
+          {online === "on" && !group && Mock.every(mockGroup => mockGroup.group_id !== groupId) && null}
+          {online === "on" && group && (
+            <NavLink to={`/`} className="back">
+              Запросить обратную связь
+            </NavLink>
+          )}
         </div>
       </div>
     </>

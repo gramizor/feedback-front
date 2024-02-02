@@ -2,10 +2,10 @@
     background-color: #307773;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     padding: 10px;
 }
 
 .header a {
     color: #E4EDDC;
+    margin: 0 25px;
 }

@@ -2,58 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './MainPage.css';
 import { useBreadcrumbsUpdater } from '../Breadcrumbs/BreadcrumbsContext';
-import loadingPhoto from "/loading-thinking.gif";
 import defaultPhoto from "/bmstu.png";
-import { GroupData, loadingGroup } from '../loadingGroup'; // Замени "path-to-loadingGroup" на путь к фай
+import GroupData from '../loadingGroup';
+import Mock from '../Mock';
 
 const MainPage: React.FC = () => {
-    const [groups, setGroups] = useState<GroupData[] | null>(null);
+    const [groups, setGroups] = useState<GroupData[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [itemsPerPage, setItemsPerPage] = useState<number>(100);
+    const [itemsPerPage] = useState<number>(100);
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
+    const [selectedCourse, setSelectedCourse] = useState<number>(0);
     const [placeholderVisible, setPlaceholderVisible] = useState(true);
-    const [loading, setLoading] = useState(true)
-
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const [online, setOnline] = useState("off");
 
     const updateBreadcrumbs = useBreadcrumbsUpdater();
+
     useEffect(() => {
+        setGroups(Mock);
         updateBreadcrumbs([{ name: 'Главная', path: '/' }]);
     }, []);
 
     useEffect(() => {
-        const fetchDataAndSetLoading = async () => {
-            setLoading(true);
-            await fetchData();
-            setLoading(false);
-            setItemsPerPage(10);
-            paginate(1);
+        const fetchData = async (_query: string, _courseQuery: number) => {
+            try {
+                const groupQuery = searchTerm ? `&groupCode=${searchTerm}` : '';
+                const courseQueryStr = selectedCourse !== null ? `&courseNumber=${selectedCourse}` : '';
+                const response = await fetch(`/api/group/paginate?page=${currentPage}&pageSize=${itemsPerPage}${groupQuery}${courseQueryStr}`);
+                const data = await response.json();
+                setGroups(data?.groups || []);
+                setOnline("on");
+            } catch (error) {
+                setGroups(Mock.filter((group) =>
+                    group.group_code.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                    (selectedCourse === 0 || group.course === selectedCourse)
+                ));
+                console.error("Error fetching group data:", error);
+                setTimeout(() => {
+                    fetchData(searchTerm, selectedCourse);
+                }, 2000);
+            }
         };
 
-        fetchDataAndSetLoading();
-    }, [currentPage, itemsPerPage, selectedCourse, searchTerm]);
-
-
-    const fetchData = async () => {
-        try {
-            const query = searchTerm ? `&groupCode=${searchTerm}` : '';
-            const courseQuery = selectedCourse !== null ? `&courseNumber=${selectedCourse}` : '';
-            const response = await fetch(`/api/group/paginate?page=${currentPage}&pageSize=${itemsPerPage}${query}${courseQuery}`);
-
-            if (!response.ok) {
-                console.error(`Failed to fetch data. Status: ${response.status}`);
-                setTimeout(fetchData, 2000);
-                return;
-            }
-
-            const data = await response.json();
-            setGroups(data?.groups || []);
-        } catch (error) {
-            console.error('Error fetching groups data:', error);
-            setTimeout(fetchData, 2000);
-        }
-    };
+        fetchData(searchTerm, selectedCourse);
+    }, [searchTerm, selectedCourse, currentPage, itemsPerPage]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
@@ -62,7 +53,7 @@ const MainPage: React.FC = () => {
 
     const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const courseNumber = parseInt(event.target.value, 10);
-        setSelectedCourse(isNaN(courseNumber) ? null : courseNumber);
+        setSelectedCourse(isNaN(courseNumber) ? 0 : courseNumber);
         setCurrentPage(1);
     };
 
@@ -113,38 +104,40 @@ const MainPage: React.FC = () => {
                 </select>
             </div>
             <div className="group-list">
-                {loading || groups === null ? (
-                    <div className='group-item'>
-                        <NavLink to={`/group/${loadingGroup.group_id}`} className="group-link">
-                            <img
-                                src={loadingPhoto}
-                                alt="Группа"
-                                className='img-group'
-                            />
-                            <h2>{loadingGroup.group_code}</h2>
-                            <p>Контакты: {loadingGroup.contacts}</p>
+                {online === "off" || groups.length === 0 ? (
+                    Mock.filter((group) =>
+                        group.group_code.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                        (selectedCourse === 0 || group.course === selectedCourse)
+                    ).map((group) => (
+                        <NavLink key={group.group_id} to={`/group/${group.group_id}`} className="group-link">
+                            <div className='group-item'>
+                                <img
+                                    src={group.photo || defaultPhoto}
+                                    alt={`Группа ${group.group_code}`}
+                                    className='img-group'
+                                />
+                                <h2>{group.group_code}</h2>
+                                <p>Контакты: {group.contacts}</p>
+                            </div>
                         </NavLink>
-                    </div>
+                    ))
                 ) : (
-                    groups.length === 0 ? (
-                        <p>Группы не найдены</p>
-                    ) : (
-                        groups.map((group) => (
-                            <div key={group.group_id} className='group-item'>
-                                <NavLink to={`/group/${group.group_id}`} className="group-link">
-                                    <img
-                                        src={group.photo || defaultPhoto}
-                                        alt={`Группа ${group.group_code}`}
-                                        className='img-group'
-                                    />
-                                    <h2>{group.group_code}</h2>
-                                    <p>Контакты: {group.contacts}</p>
-                                </NavLink>
+                    groups.map((group) => (
+                        <NavLink key={group.group_id} to={`/group/${group.group_id}`} className="group-link">
+                            <div className='group-item'>
+                                <img
+                                    src={group.photo || defaultPhoto}
+                                    alt={`Группа ${group.group_code}`}
+                                    className='img-group'
+                                />
+                                <h2>{group.group_code}</h2>
+                                <p>Контакты: {group.contacts}</p>
                                 <form onSubmit={() => handleDelete(group.group_id)} className="delete-button">
                                     <button type="submit" className="button">Удалить группу</button>
                                 </form>
                             </div>
-                        )))
+                        </NavLink>
+                    ))
                 )}
             </div>
         </>
