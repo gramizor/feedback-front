@@ -10,6 +10,7 @@
 .group-link {
     text-decoration: none;
     color: #E4EDDB;
+    cursor: pointer;
 }
 
 .group-item {

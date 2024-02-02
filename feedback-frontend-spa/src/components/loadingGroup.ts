@@ -1,6 +1,4 @@
-import loadingPhoto from "/loading-thinking.gif";
-
-export interface GroupData {
+interface GroupData {
     group_id: number;
     group_code: string;
     contacts: string;
@@ -10,12 +8,4 @@ export interface GroupData {
     photo: string;
 }
 
-export const loadingGroup: GroupData = {
-    group_id: 0,
-    group_code: 'Загрузка...',
-    contacts: 'Загрузка...',
-    course: 0,
-    students: 0,
-    group_status: 'Загрузка...',
-    photo: loadingPhoto,
-};
+export default GroupData;
