@@ -1,84 +1,66 @@
 // NavbarComponent.tsx
-import React, { useState } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import styles from "./NavbarComponent.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectsearchCode } from "../../redux/baggage/baggageListSelectors";
-import { setsearchCode } from "../../redux/baggage/baggageListSlice";
+import { selectcourseNumber, selectgroupCode } from "../../redux/group/groupListSelectors";
+import { setcourseNumber, setgroupCode } from "../../redux/group/groupListSlice";
 
-interface NavbarComponentProps {
-  onSearch: (searchCode: string) => void;
-}
 
-const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
+const NavbarComponent: React.FC = () => {
+
   const dispatch = useDispatch();
-  const searchCodeRedux = useSelector(selectsearchCode);
-  const initialsearchCode =
-    typeof searchCodeRedux === "string" ? searchCodeRedux : "";
 
-  const [searchCode, setsearchCodeLocal] = useState<string>(
-    decodeURIComponent(initialsearchCode)
-  );
+  const groupCode = useSelector(selectgroupCode);
+  const courseNumber = useSelector(selectcourseNumber);
+  const [placeholderVisible, setPlaceholderVisible] = useState(true);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
 
-    const encodedsearchCode = encodeURIComponent(searchCode);
+  }, [groupCode, courseNumber])
 
-    // Передаем cleanedsearchCode в onSearch
-    onSearch(encodedsearchCode);
-
-    // Сохраняем searchCode в Redux (без кодирования)
-    dispatch(setsearchCode(encodedsearchCode));
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setSearchTerm(event.target.value);
+    dispatch(setgroupCode(event.target.value))
   };
 
-  const handleShowAllBaggage = () => {
-    setsearchCodeLocal("");
+  const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const courseNumber = parseInt(event.target.value, 10);
+    // setSelectedCourse(isNaN(courseNumber) ? 0 : courseNumber);
+    dispatch(setcourseNumber(courseNumber))
+  };
 
-    // Передаем пустую строку в onSearch
-    onSearch("");
+  const handleFocus = () => {
+    setPlaceholderVisible(false);
+  };
 
-    // Сохраняем пустую строку в Redux и localStorage
-    dispatch(setsearchCode(""));
+  const handleBlur = () => {
+    setPlaceholderVisible(true);
   };
 
   return (
-    <Navbar className={styles.navbar}>
-      <Container>
-        <Navbar.Toggle className={styles.toggleButton} />
-        <Navbar.Collapse className={styles.collapse}>
-          <Nav className={styles.nav}>
-            <Nav.Link className={styles.navLink} onClick={handleShowAllBaggage}>
-              Весь багаж
-            </Nav.Link>
-          </Nav>
-          <Form className={styles.form} onSubmit={handleSearch}>
-            <FormControl
-              type="search"
-              placeholder="Поиск"
-              className={styles.searchInput}
-              aria-label="Поиск"
-              value={searchCode}
-              onChange={(e) => setsearchCodeLocal(e.target.value)}
-            />
-            <Button
-              variant="outline-success"
-              className={styles.searchButton}
-              type="submit"
-            >
-              Поиск
-            </Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div className={styles.filterBar}>
+      <input
+        type="text"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        placeholder={placeholderVisible ? "Поиск по названию группы" : ""}
+        value={groupCode}
+        onChange={handleSearchChange}
+        className={styles.myInput}
+      />
+      <select
+        id="courseSelect"
+        value={courseNumber || ''}
+        onChange={handleCourseChange}
+        className={styles.selector}
+      >
+        <option value="">Поиск по курсу</option>
+        <option value="1">1 курс</option>
+        <option value="2">2 курс</option>
+        <option value="3">3 курс</option>
+        <option value="4">4 курс</option>
+      </select>
+    </div>
   );
 };
 

@@ -1,0 +1,108 @@
+/* NavbarFeedback.module.css */
+
+/* Стили для блока, содержащего линки и форму поиска */
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 10px;
+  font-family: "EuclidFlex Medium";
+  font-size: large;
+}
+
+/* Дополнительные стили для формы поиска */
+.form {
+  background: #307672;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Изменено на центрирование по горизонтали */
+  margin: 50px 0;
+  padding: 5px 20px;
+  /* Убран лишний margin, добавлен margin-top и margin-bottom */
+}
+
+.searchInput {
+  color: white;
+  font-size: 20px;
+  border: 1px solid var(--euclidflex-medium);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  /* Добавил отступ снизу */
+  height: 40px;
+  width: 200px;
+  /* Увеличил ширину */
+}
+
+.datePicker {
+  color: #ffffff;
+  font-family: "EuclidFlex Medium";
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: "EuclidFlex Medium";
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+  padding: 10px;
+  border-radius: 10px;
+  background: #E4EDDB;
+  border: none;
+  outline: none;
+  border: solid #153533;
+}
+
+/* Расположение значений списка в столбик */
+.dropdownContent a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.dropdownContent a:hover {
+  background-color: var(--firstBlueShape);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownToggle {
+  background-color: var(--euclidflex-medium);
+  border: none;
+  font-family: "EuclidFlex Medium";
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Исправление для кнопок, чтобы они были ровно выровнены с другими элементами */
+.searchButton,
+.dropdownToggle {
+  margin-top: 0;
+}

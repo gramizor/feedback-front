@@ -23,8 +23,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin, isAuthenticated }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Если вход успешен, переходим на /baggage
-      navigate("/baggage");
+      // Если вход успешен, переходим на /group
+      navigate("/group");
     }
   }, [navigate]);
 
@@ -32,22 +32,22 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin, isAuthenticated }) => {
     <Form className={styles.authForm}>
       <Form.Label className={styles.title}>Вход</Form.Label>
       <Form.Group controlId="formEmail" className={styles.formgroup}>
-        <Form.Label className={styles.label}>Email:</Form.Label>
+        <Form.Label className={styles.label}>Почта:</Form.Label>
         <Form.Control
           className={styles.input}
           type="email"
-          placeholder="Enter email"
+          placeholder="Введите почту"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="formPassword" className={styles.formgroup}>
-        <Form.Label className={styles.label}>Password:</Form.Label>
+        <Form.Label className={styles.label}>Пароль:</Form.Label>
         <Form.Control
           className={styles.input}
           type="password"
-          placeholder="Enter password"
+          placeholder="Введите пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

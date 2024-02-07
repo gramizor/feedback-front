@@ -19,9 +19,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const handleRegister = () => {
     onRegister(full_name, email, password);
   };
+
+  const handleSignIn = () => {
+    navigate("/auth");
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/baggage");
+      navigate("/group");
     }
   }, [navigate]);
   return (
@@ -65,6 +70,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         className={styles.registerButton}
       >
         Зарегистрироваться
+      </Button>
+      <Button onClick={handleSignIn} className={styles.registerButton}>
+        Вход
       </Button>
     </Form>
   );

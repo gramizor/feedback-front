@@ -1,0 +1,61 @@
+/* GroupDetailsComponent.module.css */
+
+.card {
+  background: none;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  /* Увеличиваем ширину карточки */
+  height: 70vh;
+  /* Используем высоту 80% от высоты окна браузера */
+  margin: auto;
+  /* Центрируем карточку по горизонтали */
+  margin-top: 50px;
+  /* Добавляем отступ сверху */
+  display: flex;
+  flex-direction: column;
+  /* Выравниваем элементы внутри карточки по вертикали */
+  align-items: center;
+  /* Выравниваем по центру по вертикали */
+  text-align: center;
+}
+
+.cardImg {
+  max-width: 100%;
+  max-height: 60%;
+  /* Уменьшаем высоту изображения */
+  height: auto;
+  margin: 10px;
+}
+
+.cardTitle {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.cardText {
+  font: normal 1.2rem/2.5rem var(--euclidflex-medium);
+  margin-bottom: 20px;
+  /* Увеличиваем отступ снизу для текста */
+}
+
+.back {
+  display: block;
+  margin: 20px auto;
+  color: #E4EDDB;
+  text-decoration: none;
+  background-color: #307672;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.back:hover {
+  background-color: #1A3C40;
+  transition: 0.3s;
+}

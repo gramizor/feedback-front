@@ -1,0 +1,33 @@
+.btn {
+  border: none;
+  outline: none;
+  padding: 5% 5%;
+  background: #307672;
+  color: #E4EDDB;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: solid;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #1A3C40;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+.buttonContainer {
+  display: flex;
+  margin-right: 10px;
+}
+
+.disabledLink {
+  color: #888; /* цвет текста тусклой ссылки */
+  cursor: not-allowed; /* изменение курсора на "not-allowed" */
+  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+}

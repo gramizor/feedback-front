@@ -12,12 +12,12 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({ message }) => {
   if (show) {
     return (
       <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <Alert.Heading>Возникла ошибка</Alert.Heading>
         <p>{message}</p>
       </Alert>
     );
   }
-  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+  return <Button onClick={() => setShow(true)}>Показать уведомление</Button>;
 };
 
 export default ErrorAlert;

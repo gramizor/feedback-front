@@ -39,7 +39,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
           })
         );
         handleSuccess(response, store.dispatch);
-        navigate("/baggage");
+        navigate("/group");
       } else {
         store.dispatch(loginFailure());
       }
@@ -113,7 +113,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
           })
         );
         handleSuccess(response, store.dispatch);
-        navigate("/baggage");
+        navigate("/group");
       } else {
         store.dispatch(loginFailure());
       }

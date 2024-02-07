@@ -1,18 +1,17 @@
 // additionalSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  addDelivery,
-  getBaggageList,
-  deleteDelivery,
-} from "../baggage/baggageListThunk";
-import { getBaggageDetails } from "../baggage/baggageDetailsThunk";
-import { getDeliveries } from "../delivery/deliveryListThunk";
+  addFeedback,
+  getGroupList,
+  deleteFeedback,
+} from "../group/groupListThunk";
+import { getGroupDetails } from "../group/groupDetailsThunk";
+import { getFeedbacks } from "../feedback/feedbackListThunk";
 import {
-  deleteDraftDelivery,
-  formDelivery,
-  getDeliveryDetails,
-  updateFlightNumber,
-} from "../delivery/deliveryDetailsThunk";
+  deleteDraftFeedback,
+  formFeedback,
+  getFeedbackDetails,
+} from "../feedback/feedbackDetailsThunk";
 export interface INotification {
   id: string;
   message: string;
@@ -64,60 +63,54 @@ const additionalSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addDelivery.fulfilled, (state) => {
+      .addCase(addFeedback.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(addDelivery.rejected, (state) => {
+      .addCase(addFeedback.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(getBaggageList.fulfilled, (state) => {
+      .addCase(getGroupList.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(getBaggageList.rejected, (state) => {
+      .addCase(getGroupList.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(deleteDelivery.fulfilled, (state) => {
+      .addCase(deleteFeedback.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(deleteDelivery.rejected, (state) => {
+      .addCase(deleteFeedback.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(getBaggageDetails.fulfilled, (state) => {
+      .addCase(getGroupDetails.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(getBaggageDetails.rejected, (state) => {
+      .addCase(getGroupDetails.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(getDeliveries.fulfilled, (state) => {
+      .addCase(getFeedbacks.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(getDeliveries.rejected, (state) => {
+      .addCase(getFeedbacks.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(getDeliveryDetails.fulfilled, (state) => {
+      .addCase(getFeedbackDetails.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(getDeliveryDetails.rejected, (state) => {
+      .addCase(getFeedbackDetails.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(deleteDraftDelivery.fulfilled, (state) => {
+      .addCase(deleteDraftFeedback.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(deleteDraftDelivery.rejected, (state) => {
+      .addCase(deleteDraftFeedback.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(formDelivery.fulfilled, (state) => {
+      .addCase(formFeedback.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(formDelivery.rejected, (state) => {
+      .addCase(formFeedback.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(updateFlightNumber.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(updateFlightNumber.rejected, (state) => {
-        state.loading = false;
-      });
   },
 });
 

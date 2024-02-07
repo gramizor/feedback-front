@@ -2,18 +2,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authMiddleware from "./auth/authMiddleware";
 import authReducer from "./auth/authSlice";
-import baggageListReducer from "./baggage/baggageListSlice";
-import baggageDetailsReducer from "./baggage/baggageDetailsSlice";
-import deliveryListReducer from "./delivery/deliveryListSlice";
-import deliveryDetailsReducer from "./delivery/deliveryDetailsSlice";
+import groupListReducer from "./group/groupListSlice";
+import groupDetailsReducer from "./group/groupDetailsSlice";
+import feedbackListReducer from "./feedback/feedbackListSlice";
+import feedbackDetailsReducer from "./feedback/feedbackDetailsSlice";
 import additionalReducer from "./additional/additionalSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    baggageList: baggageListReducer,
-    baggageDetails: baggageDetailsReducer,
-    deliveryList: deliveryListReducer,
-    deliveryDetails: deliveryDetailsReducer,
+    groupList: groupListReducer,
+    groupDetails: groupDetailsReducer,
+    feedbackList: feedbackListReducer,
+    feedbackDetails: feedbackDetailsReducer,
     additional: additionalReducer,
   },
   middleware: (getDefaultMiddleware) =>

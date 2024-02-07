@@ -14,17 +14,17 @@ import {
   selectIsAuthenticated,
   selectfull_name,
 } from "../../redux/auth/authSelectors.ts";
-import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors.ts";
+import { selectFeedbackID } from "../../redux/group/groupListSelectors.ts";
 
 const NavigationBar: React.FC = () => {
   const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
   const navigate = useNavigate();
   const full_name = useSelector(selectfull_name);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const deliveryID = useSelector(selectDeliveryID);
+  const feedbackID = useSelector(selectFeedbackID);
   const showConstructor = {
-    showConstructorButton: deliveryID > 0,
-    deliveryID,
+    showConstructorButton: feedbackID > 0,
+    feedbackID,
   };
   const handleLogout = () => {
     dispatch(logout({ navigate })); // Диспатчим экшен для выхода
@@ -35,50 +35,44 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
-          <Navbar.Brand as={Link} to="/baggage" className={styles.navbarBrand}>
-            <Image src={logo} alt="Logo" className={styles.logo} />
-            BagTracker
+          <Navbar.Brand as={Link} to="/group" className={styles.someText}>
+            Группы
           </Navbar.Brand>
-          <Navbar.Brand className={styles.navbarBrand}>
-            {full_name}
-          </Navbar.Brand>
+
           <Nav className={styles.nav}>
             {isAuthenticated && (
-              <>
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
-                </Nav.Link>
-                <Nav.Link as={Link} to="/delivery" className={styles.navLink}>
-                  Мои заявки
-                </Nav.Link>
-                <Nav.Link
-                  as={Link}
-                  to={`/delivery/${showConstructor.deliveryID}`}
-                  disabled={!showConstructor.showConstructorButton}
-                  className={`${styles.navLink} ${
-                    !showConstructor.showConstructorButton
+              <div className={styles.authorized}>
+                <>
+                  <Nav.Link as={Link} to="/feedback" className={styles.navLink}>
+                    Мои заявки
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to={`/feedback/${showConstructor.feedbackID}`}
+                    disabled={!showConstructor.showConstructorButton}
+                    className={`${styles.navLink} ${!showConstructor.showConstructorButton
                       ? styles.disabledLink
                       : ""
-                  }`}
-                >
-                  Конструктор заявки
-                </Nav.Link>
-
-                <Button
-                  variant="danger"
-                  onClick={handleLogout}
-                  className={styles.btn}
-                >
-                  Выйти
-                </Button>
-              </>
+                      }`}
+                  >
+                    Конструктор заявки
+                  </Nav.Link>
+                </>
+                  <Navbar.Brand className={styles.someText}>
+                    Вы вошли как {full_name}
+                  </Navbar.Brand>
+                  <Button
+                    variant="danger"
+                    onClick={handleLogout}
+                    className={styles.logout}
+                  >
+                    Выйти
+                  </Button>
+              </div>
             )}
             {!isAuthenticated && (
               <>
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
-                </Nav.Link>
-                <Nav.Link as={Link} to="/auth" className={styles.navLink}>
+                <Nav.Link as={Link} to="/auth" className={styles.enter}>
                   Вход
                 </Nav.Link>
               </>

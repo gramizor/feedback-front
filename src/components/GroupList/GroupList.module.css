@@ -1,0 +1,55 @@
+/* Стили для карточек багажей */
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 10%;
+}
+
+.card {
+  background: #307672;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.4s;
+  color: #E4EDDB;
+}
+
+.card:hover {
+  background: #1A3C40;
+  border-radius: 15px;
+  transition: 0.4s;
+}
+
+.cardsImg {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cardsText {
+  color: #E4EDDB;
+  margin: 20px
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 5% 5%;
+  background: #307672;
+  color: #E4EDDB;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: solid;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #1A3C40;
+  border-radius: 20px;
+  transition: 0.3s;
+}
