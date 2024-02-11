@@ -1,25 +1,12 @@
 .navbar {
-  background-color: rgba(0, 0, 34, 0.3);
-  padding: 0% 1% 0 1%;
-}
-.logo {
-  width: 5%;
-  height: 5%;
-  margin-right: 1%;
-}
-/* Добавленные стили для toggleButton */
-.toggleButton {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  margin-right: 20px; /* Пространство между toggleButton и линками */
-}
-
-.navbarBrand {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  margin-right: 7%;
+  background-color: #307773;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  width: 100vw;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .collapse {
@@ -30,82 +17,58 @@
 .nav {
   display: flex;
   align-items: center;
-  margin-left: auto;
 }
 
 .navLink {
-  padding: 10px 30px;
-  cursor: pointer;
-  color: #fff;
-  font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
-  text-decoration: none;
-  transition: background 0.5s ease-in-out;
-}
-.btn {
-  padding: 10px 30px;
-  cursor: pointer;
-  color: #fff;
-  font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
-  text-decoration: none;
-  transition: background 0.5s ease-in-out;
-  background-color: chocolate;
-}
-.navLink:hover,
-.navLink:active,
-.navLink:focus {
-  background: #2980b9;
-}
-.disabledLink {
-  color: #888; /* цвет текста тусклой ссылки */
-  cursor: not-allowed; /* изменение курсора на "not-allowed" */
-  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+  color: #E4EDDB;
+  margin-left: 25px;
 }
 
-/* StyledSwitch.module.css */
-.customSwitch {
-  position: relative;
-  width: 120px;
-  height: 30px;
-  margin: 0;
-  cursor: pointer;
-  display: flex;
-  font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
+.logout:hover {
+  background: #1A3C40;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.someText {
   align-items: center;
-  margin-right: 10px;
-  gap: 5px;
+  color: #E4EDDB;
+  margin-left: 25px;
 }
 
-.customSwitch .slider {
-  position: absolute;
+.logout {
+  border: none;
+  outline: none;
+  padding: 10px;
+  background: #307672;
+  color: #E4EDDB;
+  font-size: 16px;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: 30px;
-  transition: 0.4s;
+  border-radius: 10px;
+  border: solid;
+  transition: 0.3s;
+  margin-left: 25px;
 }
 
-.customSwitch .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
+.disabledLink {
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
-.customSwitch input:checked + .slider {
-  background-color: #51cbce;
+.profile {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  margin-left: 25px;
 }
 
-.customSwitch input:checked + .slider:before {
-  transform: translateX(90px);
+.authorized {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.enter {
+  margin-left: 25px;
 }

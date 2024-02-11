@@ -1,15 +1,15 @@
 // AppRoutes.tsx
 import { RouteObject, useRoutes } from "react-router-dom";
-import BaggageListPage from "./pages/BaggageListPage";
-import BaggageDetailsPage from "./pages/BaggageDetailsPage";
+import GroupListPage from "./pages/GroupListPage";
+import GroupDetailsPage from "./pages/GroupDetailsPage";
 import AuthPage from "./pages/AuthPage";
-import DeliveryDetailsPage from "./pages/DeliveryDetailsPage";
+import FeedbackDetailsPage from "./pages/FeedbackDetailsPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
-import DeliveryListPage from "./pages/DeliveryListPage";
+import FeedbackListPage from "./pages/FeedbackListPage";
 import { MainLayout } from "./components/MainLayout/MainLayout";
-import CreateBaggagePage from "./pages/CreateBaggagePage";
-import EditBaggagePage from "./pages/EditBaggagePage";
+import CreateGroupPage from "./pages/CreateGroupPage";
+import EditGroupPage from "./pages/EditGroupPage";
 
 const routes: RouteObject[] = [
   {
@@ -17,31 +17,31 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <BaggageListPage />,
+        element: <GroupListPage />,
       },
       {
-        path: "/baggage/:id",
-        element: <BaggageDetailsPage />,
+        path: "/group/:id",
+        element: <GroupDetailsPage />,
       },
       {
         path: "/auth",
         element: <AuthPage />,
       },
       {
-        path: "/delivery",
-        element: <DeliveryListPage />,
+        path: "/feedback",
+        element: <FeedbackListPage />,
       },
       {
-        path: "/delivery/:id",
-        element: <DeliveryDetailsPage />,
+        path: "/feedback/:id",
+        element: <FeedbackDetailsPage />,
       },
       {
-        path: "/baggage",
-        element: <BaggageListPage />,
+        path: "/group",
+        element: <GroupListPage />,
         // children: [
         //   {
         //     path: "create",
-        //     element: <CreateBaggagePage />,
+        //     element: <CreateGroupPage />,
         //   },
         // ],
       },
@@ -50,16 +50,16 @@ const routes: RouteObject[] = [
         element: <RegisterPage />, // Добавлено
       },
       {
-        path: "/baggage/create", // Добавлено
-        element: <CreateBaggagePage />, // Добавлено
+        path: "/group/create", // Добавлено
+        element: <CreateGroupPage />, // Добавлено
       },
       {
-        path: "/baggage/:id/update", // Добавлено
-        element: <EditBaggagePage />, // Добавлено
+        path: "/group/:id/update", // Добавлено
+        element: <EditGroupPage />, // Добавлено
       },
       {
         path: "*",
-        element: <BaggageListPage />,
+        element: <GroupListPage />,
       },
     ],
   },

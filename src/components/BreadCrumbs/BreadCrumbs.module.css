@@ -2,26 +2,27 @@
 
 .breadcrumb {
   display: flex;
+  position: absolute;
   align-items: center;
   list-style: none;
   padding: 1%;
   margin: 1%;
+  color: black;
 }
 
 .breadcrumbItem {
   display: inline-block;
   align-items: center;
-  font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
 }
 
 .separator {
-  margin: 0 5px; /* Adjust the margin as needed */
+  margin: 0 5px;
+  /* Adjust the margin as needed */
   font-size: 30px;
-  font-family: "EuclidFlex Bold", sans-serif;
 }
 
 .breadcrumbItem.active {
-  color: #007bff; /* Color of the active breadcrumb item */
-  font-weight: bold;
+  color: #307773;
+  /* Color of the active breadcrumb item */
+
 }

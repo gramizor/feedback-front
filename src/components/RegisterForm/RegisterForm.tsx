@@ -19,9 +19,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const handleRegister = () => {
     onRegister(full_name, email, password);
   };
+
+  const handleSignIn = () => {
+    navigate("/auth");
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/baggage");
+      navigate("/group");
     }
   }, [navigate]);
   return (
@@ -42,7 +47,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         <Form.Control
           className={styles.input}
           type="email"
-          placeholder="Введите почту"
+          placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -53,7 +58,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         <Form.Control
           className={styles.input}
           type="password"
-          placeholder="Введите пароль"
+          placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -65,6 +70,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         className={styles.registerButton}
       >
         Зарегистрироваться
+      </Button>
+      <Button onClick={handleSignIn} className={styles.registerButton}>
+        Вход
       </Button>
     </Form>
   );

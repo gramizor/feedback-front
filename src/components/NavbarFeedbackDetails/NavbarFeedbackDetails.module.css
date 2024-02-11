@@ -1,0 +1,42 @@
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 10px;
+  background: #307672;
+  color: #E4EDDB;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: solid;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #1A3C40;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  margin: auto;
+}
+
+.disabledLink {
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px auto 10px;
+}

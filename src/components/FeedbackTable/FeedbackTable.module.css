@@ -1,0 +1,119 @@
+/* FeedbackTable.module.css */
+
+.table {
+  width: 100%;
+  background-color: #307773;
+  table-layout: fixed;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-collapse: collapse;
+}
+
+.table-content {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+}
+
+.th {
+  width: 100%;
+  padding: 20px 15px;
+  text-align: center;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.td {
+  padding: 15px;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  /* Added position relative */
+}
+
+.td:last-child:hover {
+  background-color: transparent;
+}
+
+.link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.tr {
+  transition: background-color 0.3s;
+}
+
+.tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.td:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+  width: 100px;
+  border: none;
+  outline: none;
+  padding: 10px 5px;
+  background: #307672;
+  color: #E4EDDB;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: solid;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #1A3C40;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+/* Стили для ссылок внутри таблицы */
+.link {
+  color: var(--firstBlueShape);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: var(--secondBlueShape);
+}
+
+/* Стили для строк с разными статусами */
+.tr.pending {
+  background-color: rgba(255, 165, 0, 0.2);
+}
+
+.tr.rejected {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.tr.completed {
+  background-color: rgba(0, 128, 0, 0.2);
+}
+
+.disabledLink {
+  color: #888;
+  /* цвет текста тусклой ссылки */
+  cursor: not-allowed;
+  /* изменение курсора на "not-allowed" */
+  pointer-events: none;
+  /* отключение событий указателя (ссылка становится непереходимой) */
+}

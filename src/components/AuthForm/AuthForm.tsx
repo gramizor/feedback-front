@@ -23,8 +23,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin, isAuthenticated }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Если вход успешен, переходим на /baggage
-      navigate("/baggage");
+      // Если вход успешен, переходим на /group
+      navigate("/group");
     }
   }, [navigate]);
 

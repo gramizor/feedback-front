@@ -1,0 +1,101 @@
+.navbar {
+  display: block;
+  align-items: center;
+  padding: 10px;
+  margin: auto;
+  width: auto;
+}
+
+.form {
+  background: #307672;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  border-radius: 20px;
+  justify-content: center;
+}
+
+.searchOwner {
+  background-color: #E4EDDB;
+  font-size: 1.5rem;
+  border: 1px solid var(--euclidflex-medium);
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  border-radius: 20px;
+  padding-left: 20px;
+  height: 40px;
+  width: 400px;
+}
+
+.searchInput {
+  color: white;
+  background-color: transparent;
+  border: 1px solid var(--euclidflex-medium);
+  transition: background-color 0.3s ease;
+}
+.datePicker {
+  color: #ffffff;
+  font-size: 20px;
+  outline: none;
+  border-radius: 5px;
+  padding: 0;
+  margin: 20px;
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+  padding: 10px;
+  border-radius: 10px;
+  background: #E4EDDB;
+  border: none;
+  outline: none;
+  border: solid #153533;
+}
+
+/* Расположение значений списка в столбик */
+.dropdownContent a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+
+.dropdownContent a:hover {
+  background-color: rgba(0, 0, 34, 0.4);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownToggle {
+  background-color: var(--euclidflex-medium);
+  border: none;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.searchButton,
+.dropdownToggle {
+  margin-top: 0;
+}

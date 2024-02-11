@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   full_name: string | null;
   token: string | null;
   email: string | null;
@@ -16,6 +17,7 @@ const loadAuthState = (): AuthState => {
 const getInitialState = (): AuthState => {
   return {
     isAuthenticated: false,
+    isAdmin: false,
     full_name: null,
     token: null,
     email: null,
@@ -43,10 +45,13 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.full_name = action.payload.full_name;
       state.role = action.payload.role;
+      const isAdmin = state.role === "модератор";
+      state.isAdmin = isAdmin;
       localStorage.setItem("authState", JSON.stringify(state));
     },
     loginFailure: (state) => {
       state.isAuthenticated = false;
+      state.isAdmin = false;
       state.token = null;
       state.email = null;
       state.full_name = null;
@@ -55,6 +60,7 @@ const authSlice = createSlice({
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
+      state.isAdmin = false;
       state.token = null;
       state.email = null;
       state.full_name = null;
@@ -75,6 +81,8 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.full_name = action.payload.full_name;
       state.role = action.payload.role;
+      const isAdmin = state.role === "модератор";
+      state.isAdmin = isAdmin;
       localStorage.setItem("authState", JSON.stringify(state));
     },
   },
