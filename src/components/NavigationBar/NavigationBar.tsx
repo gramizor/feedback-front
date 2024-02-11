@@ -6,10 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
-import Button from "react-bootstrap/Button"; // Импортируем компонент Button из Bootstrap
-import logo from "../../../public/BagTracker.png";
+import Button from "react-bootstrap/Button";
 import styles from "./NavigationBar.module.css";
-import { logout } from "../../redux/auth/authActions.ts"; // Импортируем экшен для выхода
+import { logout } from "../../redux/auth/authActions.ts";
 import {
   selectIsAuthenticated,
   selectfull_name,

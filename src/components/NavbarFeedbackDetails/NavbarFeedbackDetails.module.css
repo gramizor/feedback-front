@@ -1,7 +1,7 @@
 .btn {
   border: none;
   outline: none;
-  padding: 5% 5%;
+  padding: 10px 10px;
   background: #307672;
   color: #E4EDDB;
   font-size: 16px;
@@ -21,13 +21,22 @@
   display: flex;
   align-items: center;
 }
+
 .buttonContainer {
   display: flex;
-  margin-right: 10px;
+  margin: auto;
 }
 
 .disabledLink {
-  color: #888; /* цвет текста тусклой ссылки */
-  cursor: not-allowed; /* изменение курсора на "not-allowed" */
-  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px auto 10px;
 }

@@ -7,25 +7,18 @@
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   width: 400px;
-  /* Увеличиваем ширину карточки */
   height: 70vh;
-  /* Используем высоту 80% от высоты окна браузера */
   margin: auto;
-  /* Центрируем карточку по горизонтали */
   margin-top: 50px;
-  /* Добавляем отступ сверху */
   display: flex;
   flex-direction: column;
-  /* Выравниваем элементы внутри карточки по вертикали */
   align-items: center;
-  /* Выравниваем по центру по вертикали */
   text-align: center;
 }
 
 .cardImg {
   max-width: 100%;
   max-height: 60%;
-  /* Уменьшаем высоту изображения */
   height: auto;
   margin: 10px;
 }
@@ -38,7 +31,6 @@
 .cardText {
   font: normal 1.2rem/2.5rem var(--euclidflex-medium);
   margin-bottom: 20px;
-  /* Увеличиваем отступ снизу для текста */
 }
 
 .back {

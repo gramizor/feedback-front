@@ -45,7 +45,6 @@ const FeedbackDetailsPage: React.FC = () => {
   return (
     <Container>
       <NavigationBar />
-      <NavbarFeedbackDetails />
       {loading ? (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <Spin size="large" />
@@ -74,6 +73,7 @@ const FeedbackDetailsPage: React.FC = () => {
                     feedback.completion_date
                   )}`}
                 </Card.Text>
+                <NavbarFeedbackDetails />
               </Card.Body>
             </Card>
           )}
