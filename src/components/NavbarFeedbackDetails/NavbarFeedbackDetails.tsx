@@ -60,7 +60,8 @@ const NavbarFeedbackDetails: React.FC = () => {
               disabled={isFormButtonDisabled}
             >
               {loading ? "Сформировать..." : "Сформировать"}
-            </Button></div>
+            </Button>
+          </div>
           <div className={styles.buttonContainer}>
             <Button
               variant="warning"

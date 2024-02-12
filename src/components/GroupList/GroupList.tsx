@@ -5,7 +5,6 @@ import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import styles from "./GroupList.module.css";
 import { Group } from "../../redux/group/groupListSlice";
 
-// Добавляем импорт фото по умолчанию
 import defaultPhoto from "/bmstu.png";
 
 interface GroupListProps {

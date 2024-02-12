@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import styles from "./NavigationBar.module.css";
 import { logout } from "../../redux/auth/authActions.ts";
@@ -34,6 +33,7 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
+
           <Navbar.Brand as={Link} to="/group" className={styles.someText}>
             Группы
           </Navbar.Brand>
@@ -57,21 +57,21 @@ const NavigationBar: React.FC = () => {
                     Конструктор заявки
                   </Nav.Link>
                 </>
-                  <Navbar.Brand className={styles.someText}>
-                    Вы вошли как {full_name}
-                  </Navbar.Brand>
-                  <Button
-                    variant="danger"
-                    onClick={handleLogout}
-                    className={styles.logout}
-                  >
-                    Выйти
-                  </Button>
+                <Navbar.Brand className={styles.someText}>
+                  Вы вошли как {full_name}
+                </Navbar.Brand>
+                <Button
+                  variant="danger"
+                  onClick={handleLogout}
+                  className={styles.logout}
+                >
+                  Выйти
+                </Button>
               </div>
             )}
             {!isAuthenticated && (
               <>
-                <Nav.Link as={Link} to="/auth" className={styles.enter}>
+                <Nav.Link as={Link} to="/auth" className={styles.logout}>
                   Вход
                 </Nav.Link>
               </>
