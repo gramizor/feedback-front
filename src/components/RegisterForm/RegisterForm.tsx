@@ -47,7 +47,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         <Form.Control
           className={styles.input}
           type="email"
-          placeholder="Enter email"
+          placeholder="Введите почту"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -58,7 +58,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         <Form.Control
           className={styles.input}
           type="password"
-          placeholder="Enter password"
+          placeholder="Введите пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

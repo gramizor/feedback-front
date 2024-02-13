@@ -1,4 +1,3 @@
-/* Стили для карточек багажей */
 .cards {
   display: flex;
   flex-direction: row;
@@ -33,6 +32,10 @@
 .cardsText {
   color: #E4EDDB;
   margin: 20px
+}
+
+.cardsNull{
+  
 }
 
 .btn {

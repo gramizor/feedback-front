@@ -46,7 +46,7 @@ export interface GroupRequest {
 }
 
 interface UpdateGroupPayload {
-  id: number; // Используем id как идентификатор багажа
+  id: number;
   group: GroupRequest; // Используем GroupRequest для передачи данных
   navigate?: NavigateFunction | undefined;
 }

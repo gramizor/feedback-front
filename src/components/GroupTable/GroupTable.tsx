@@ -133,7 +133,7 @@ const GroupTable: React.FC<GroupTableProps> = ({
                       onAddFeedback && onAddFeedback(groupItem.group_id)
                     }
                   >
-                    Добавить группу
+                    Запросить обратную связь
                   </Button>
                 </td>
               </tr>

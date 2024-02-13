@@ -53,20 +53,22 @@ const EditGroupForm: React.FC<EditGroupFormProps> = ({ group }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const studentsAsNumber = Number(formData.students);
+    const courseAsNumber = Number(formData.course)
 
-    if (!isNaN(studentsAsNumber)) {
+    if ((!isNaN(studentsAsNumber)) && (!isNaN(courseAsNumber))) {
       dispatch(
         updateGroup({
           id: Number(id) || 0,
           group: {
             ...formData,
             students: studentsAsNumber,
+            course: courseAsNumber,
           },
           navigate: handlNavigateGroupList,
         })
       );
     } else {
-      console.error("Ошибка: Количество студентов должно быть числом");
+      console.error("Ошибка: Количество студентов и курс должны быть числом");
     }
   };
 
@@ -79,11 +81,11 @@ const EditGroupForm: React.FC<EditGroupFormProps> = ({ group }) => {
           </Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group className={styles.formGroup} controlId="group_code">
-              <Form.Label className={styles.formLabel}>Код группы</Form.Label>
+              <Form.Label className={styles.formLabel}>Название группы</Form.Label>
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Введите код группы"
+                placeholder="Введите название группы"
                 name="group_code"
                 value={formData.group_code || ""}
                 onChange={handleInputChange}

@@ -57,11 +57,11 @@ const CreateGroupForm: React.FC = () => {
               className={styles.formGroup || ""}
               controlId="formGroupCode"
             >
-              <Form.Label className={styles.formLabel}>Код группы</Form.Label>
+              <Form.Label className={styles.formLabel}>Название группы</Form.Label>
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Введите код группы"
+                placeholder="Введите название группы"
                 name="group_code"
                 value={formData.group_code || ""}
                 onChange={handleInputChange}
@@ -103,7 +103,7 @@ const CreateGroupForm: React.FC = () => {
             </Form.Group>
             <Container className={styles.btnContainer}>
               <Button className={styles.btn} onClick={handleSubmit}>
-                Создать багаж
+                Создать группу
               </Button>
             </Container>
           </Form>

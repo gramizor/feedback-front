@@ -60,7 +60,7 @@ const FeedbackDetailsPage: React.FC = () => {
                   {`ID: ${feedback.feedback_id || ""}`}
                 </Card.Title>
                 <Card.Text className={styles.cardsTextDel}>
-                  {`Статус доставки: ${feedback.feedback_status || ""}`}
+                  {`Статус опроса: ${feedback.feedback_status || ""}`}
                 </Card.Text>
                 <Card.Text className={styles.cardsTextDel}>
                   {`Дата создания: ${formatDateTime(feedback.creation_date)}`}

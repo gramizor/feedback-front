@@ -57,8 +57,6 @@ const GroupList: React.FC<GroupListProps> = ({
                       </h2>
                       <Card.Text className={styles.cardsText}>
                         Контакты: {item.contacts}
-                        <br />
-                        Курс: {item.course}
                       </Card.Text>
                     </Link>
                     <div className={styles.buttonsContainer}>
@@ -93,8 +91,8 @@ const GroupList: React.FC<GroupListProps> = ({
               </Col>
             ))
           ) : (
-            <Card.Text className={styles.cardsText}>
-              Нет доступных багажей
+            <Card.Text className={styles.cardsNull}>
+              Нет доступных групп
             </Card.Text>
           )}
         </Row>
