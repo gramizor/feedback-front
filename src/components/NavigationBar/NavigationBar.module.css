@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: row;
   padding: 10px;
-  width: 100vw;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -22,6 +21,7 @@
 .navLink {
   color: #E4EDDB;
   margin-left: 25px;
+  white-space: nowrap;
 }
 
 .logout:hover {
@@ -34,20 +34,21 @@
   align-items: center;
   color: #E4EDDB;
   margin-left: 25px;
+  white-space: nowrap;
 }
 
 .logout {
   border: none;
   outline: none;
-  padding: 10px;
   background: #307672;
   color: #E4EDDB;
-  font-size: 16px;
   cursor: pointer;
   border-radius: 10px;
   border: solid;
   transition: 0.3s;
   margin-left: 25px;
+  white-space: nowrap;
+  padding: 7px;
 }
 
 .disabledLink {

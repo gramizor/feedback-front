@@ -1,5 +1,5 @@
 // GroupListPage.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavbarComponent from "../components/Navbar/NavbarComponent";
 import GroupList from "../components/GroupList/GroupList";
@@ -16,6 +16,7 @@ import { selectIsAuthenticated, selectisAdmin } from "../redux/auth/authSelector
 import { Spin } from "antd";
 import { selectLoading, selectResult, } from "../redux/additional/additionalSelectors";
 import Breadcrumbs from "../components/BreadCrumbs/BreadCrumbs";
+import Pagination from "../components/Pagination/Pagination";
 
 const GroupListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +27,9 @@ const GroupListPage: React.FC = () => {
   const result = useSelector(selectResult);
   const load = useSelector(selectLoading);
   const isAdmin = useSelector(selectisAdmin);
+  // Добавим состояние для хранения текущей страницы
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   useEffect(() => {
     dispatch(getGroupList({ groupCode: groupCode, courseNumber: courseNumber }));
@@ -39,10 +43,26 @@ const GroupListPage: React.FC = () => {
     dispatch(addFeedback({ groupID: groupId, groupCode: groupCode, courseNumber: courseNumber }));
   };
 
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      dispatch(getGroupList({ groupCode: groupCode, courseNumber: courseNumber, page: newPage }));
+    }
+  };
+
+  const handleNextPage = () => {
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    dispatch(getGroupList({ groupCode: groupCode, courseNumber: courseNumber, page: newPage }));
+  };
+
+
   const breadcrumbsPaths = [
     { to: "/", label: "Главная" },
     { to: "/group", label: "Список групп" },
   ];
+
 
   return (
     <div className={styles.body}>
@@ -56,14 +76,22 @@ const GroupListPage: React.FC = () => {
       ) : !result ? (
         <div className={styles.pageTitle}>Ничего не найдено</div>
       ) : (
-        <GroupList
-          isAuthenticated={isAuthenticated}
-          groupData={groupData}
-          isFeedbackConstructor={false}
-          isFeedbackNotDraft={false}
-          onAddFeedback={handleAddFeedback}
-          isAdmin={isAdmin}
-        />
+        <>
+          <GroupList
+            isAuthenticated={isAuthenticated}
+            groupData={groupData}
+            isFeedbackConstructor={false}
+            isFeedbackNotDraft={false}
+            onAddFeedback={handleAddFeedback}
+            isAdmin={isAdmin}
+          />
+          <Pagination
+            currentPage={currentPage}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+          />
+        </>
+
       )}
     </div>
   );

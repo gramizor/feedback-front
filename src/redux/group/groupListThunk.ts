@@ -16,16 +16,16 @@ interface GetGroupsRepsonse {
   feedbackID: number;
 }
 
-export const getGroupList = createAsyncThunk<GetGroupsRepsonse, { groupCode: string | null, courseNumber: number | null; }>(
+export const getGroupList = createAsyncThunk<GetGroupsRepsonse, { groupCode: string | null, courseNumber: number | null, page?: number; }>(
   "groupList/getGroupList",
-  async ({ groupCode, courseNumber }, { dispatch }) => {
+  async ({ groupCode, courseNumber, page }, { dispatch }) => {
     let timer;
     try {
       timer = setTimeout(() => {
         dispatch(loading(true));
       }, 250);
       const response = await axios.get<GetGroupsRepsonse>(
-        `/group/?groupCode=${groupCode}&courseNumber=${courseNumber}`
+        `/group/?groupCode=${groupCode}&courseNumber=${courseNumber}&page=${page || 1}`
       );
       dispatch(setGroupData(response.data.groups));
       dispatch(setFeedbackID(response.data.feedbackID));
@@ -39,9 +39,9 @@ export const getGroupList = createAsyncThunk<GetGroupsRepsonse, { groupCode: str
   }
 );
 
-export const addFeedback = createAsyncThunk<void, { groupID: number, groupCode: string | null, courseNumber: number | null }>(
+export const addFeedback = createAsyncThunk<void, { groupID: number, groupCode: string | null, courseNumber: number | null, page?: number; }>(
   "groupList/addFeedback",
-  async ({ groupID, groupCode, courseNumber }, { dispatch }) => {
+  async ({ groupID, groupCode, courseNumber, page }, { dispatch }) => {
     let timer;
     try {
       timer = setTimeout(() => {
@@ -51,7 +51,7 @@ export const addFeedback = createAsyncThunk<void, { groupID: number, groupCode: 
       // dispatch(setGroupData(response.data.groups));
       // dispatch(setFeedbackID(response.data.feedbackID));
       handleSuccess(response, dispatch);
-      dispatch(getGroupList({ groupCode: groupCode, courseNumber: courseNumber }))
+      dispatch(getGroupList({ groupCode: groupCode, courseNumber: courseNumber, page: page }))
     } catch (error: any) {
       handleError(error, dispatch);
       throw error;
@@ -82,7 +82,7 @@ export const deleteFeedback = createAsyncThunk<void, number>(
 
 export const deleteGroup = createAsyncThunk<void, { groupID: number, groupCode: string | null, courseNumber: number | null }>(
   "groupList/deleteGroup",
-  async ({groupID, groupCode, courseNumber}, { dispatch }) => {
+  async ({ groupID, groupCode, courseNumber }, { dispatch }) => {
     let timer;
     try {
       timer = setTimeout(() => {

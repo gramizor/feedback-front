@@ -5,8 +5,8 @@
   width: 300px;
   text-align: center;
   position: relative;
-  font-family: "EuclidFlex Bold", sans-serif; /* Установка шрифта */
-  font-size: 18px; /* Размер шрифта */
+  font-family: 'Comfortaa', cursive;
+  font-size: 18px;
   border-radius: 5px;
   animation: slideIn 0.3s ease-in-out forwards;
 }
